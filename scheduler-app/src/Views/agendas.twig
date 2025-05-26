@@ -1,0 +1,23 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <div class="container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clienteModal">
+            Adicionar Cliente
+        </button>
+    </div>
+
+    <div class="container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agendaModal">
+            Adicionar Agenda
+        </button>
+    </div>
+
+    {{ include('./modals/clienteModal.twig') }}
+    {{ include('./modals/agendaModal.twig') }}
+
+    {# Adiciona os Script do JQuery + Sript Exclusivo da pagina #}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./scripts/scriptAgenda.js"></script>
+
+{% endblock %}

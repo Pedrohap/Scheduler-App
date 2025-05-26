@@ -16,8 +16,8 @@ class Usuario
         $db = new Database();
         $this->conn = $db->connect();
     }
-
-    // Buscar por email
+    
+    // Buscar por nome de usuario
     public function buscarPorNomeUsuario($nome_usuario)
     {
         $query = "SELECT * FROM {$this->table} WHERE nome_usuario = :nome_usuario LIMIT 1";
@@ -38,7 +38,7 @@ class Usuario
         }
     }
 
-    // Buscar por nome de usuario
+    // Buscar por email
     public function buscarPorEmail($email)
     {
         $query = "SELECT * FROM {$this->table} WHERE email = :email LIMIT 1";

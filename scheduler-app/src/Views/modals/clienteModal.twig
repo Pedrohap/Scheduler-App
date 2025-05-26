@@ -1,0 +1,37 @@
+<div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="clienteModalLabel">Adicionar Cliente</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <span id = "resultado_cliente"></span>
+        <form id="form_add_cliente" method="POST" action="./addCliente" >
+            <div class="row">
+                <div class="col">
+                    <label for="nome_completo" class="form-label">Nome Completo</label>
+                    <input type="text" class="form-control" id="nome_completo" name="nome_completo" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="col">
+                    <label for="telefone" class="form-label">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone" required>
+                </div>
+            </div>
+            <div class="row border-top mt-2 pt-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

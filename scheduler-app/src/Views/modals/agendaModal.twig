@@ -1,0 +1,53 @@
+<div class="modal fade" id="agendaModal" tabindex="-1" aria-labelledby="agendaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="agendaModalLabel">Adicionar Agenda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <span id = "resultado_cliente"></span>
+        <form id="form_add_cliente" method="POST" action="./addCliente" >
+            <div class="row">
+                <div class="col">
+                    <label for="cliente_id" class="form-label">ID Clientee</label>
+                    <input type="number" class="form-control" id="cliente_id" name="cliente_id" required>
+                </div>
+                <div class="col">
+                    <label for="nome_completo_cliente" class="form-label">Nome Cliente</label>
+                    <input type="text" class="form-control" id="nome_completo_cliente" name="nome_completo_cliente" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="data_inicial" class="form-label">Data de Inicio</label>
+                    <input type="date" class="form-control" id="data_inicial" name="data_inicial" required>
+                </div>
+                <div class="col">
+                    <label for="data_final" class="form-label">Data de Encerramento</label>
+                    <input type="date" class="form-control" id="data_final" name="data_final" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="titulo" class="form-label">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" name="descricao" required>
+                </div>
+            </div>
+            <div class="row border-top mt-2 pt-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
