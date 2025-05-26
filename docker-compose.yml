@@ -1,0 +1,28 @@
+services:
+  scheduler:
+    image: scheduler
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - ./scheduler-app:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: scheduler
+      MYSQL_USER: adminsch
+      MYSQL_PASSWORD: admin123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
