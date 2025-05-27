@@ -16,8 +16,66 @@
     {{ include('./modals/clienteModal.twig') }}
     {{ include('./modals/agendaModal.twig') }}
 
-    {# Adiciona os Script do JQuery + Sript Exclusivo da pagina #}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <div class="container">
+        <h1>Filtros</h1>
+        <div class="row">
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <label for="cliente_id" class="form-label">ID Cliente</label>
+                        <input type="number" class="form-control" id="cliente_id" name="cliente_id" required>
+                    </div>
+                    <div class="col">
+                        <label for="cliente_id" class="form-label">Nome Cliente</label>
+                        <input type="text" class="form-control" id="cliente_id" name="cliente_id" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="cliente_id" class="form-label">Data de Inicio</label>
+                        <input type="datetime-local" class="form-control" id="cliente_id" name="cliente_id" required>
+                    </div>
+                    <div class="col">
+                        <label for="cliente_id" class="form-label">Data de Fim</label>
+                        <input type="datetime-local" class="form-control" id="cliente_id" name="cliente_id" required>
+                    </div>
+                </div>
+                <div class="row mt-2 pt-2">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h1>Agendas Marcadas</h1>
+        <div class="row">
+            <div id="div_agendas">
+
+            </div>
+        </div>
+    </div>
+
+
+    {# Modal de confirmação de exclusão #}
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir esta agenda?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Sript Exclusivo da pagina #}
     <script src="./scripts/scriptAgenda.js"></script>
 
 {% endblock %}

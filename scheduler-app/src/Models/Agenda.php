@@ -49,13 +49,13 @@ class Agenda
             $params[':titulo'] = '%' . $filtros['titulo'] . '%';
         }
 
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($sql);
 
         try {
             $stmt->execute($params);
             $agendas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($usuarios) {
+            if ($agendas) {
                 return ['success' => true, 'data' => $agendas];
             } else {
                 return ['success' => false, 'error' => 'NOT_FOUND', 'message' => 'Clientes não encontrado vinculados a este usuário.'];

@@ -223,6 +223,29 @@ $app->get('/getClientes', function ($request, $response, $args) use ($twig) {
     return $response->withHeader('Content-Type', 'application/json');
 })->add(new AuthMiddleware());
 
+$app->get('/getCliente/{id}', function ($request, $response, $args) use ($twig) {
+    $id = (int)$args['id'];
+    $controller = new ClienteController();
+
+    $result = $controller->getClientePorId($id);
+
+    $payload = json_encode($result);
+    $response->getBody()->write($payload);
+    return $response->withHeader('Content-Type', 'application/json');
+})->add(new AuthMiddleware());
+
+$app->get('/getClienteNameLike/{nome}', function ($request, $response, $args) use ($twig) {
+    $nome_incompleto = $args['nome'];
+    $controller = new ClienteController();
+
+    $result = $controller->getClientePorNomeLike($nome_incompleto);
+
+    $payload = json_encode($result);
+    $response->getBody()->write($payload);
+    return $response->withHeader('Content-Type', 'application/json');
+})->add(new AuthMiddleware());
+
+
 $app->post('/addCliente', function ($request, $response, $args) use ($twig) {
     $controller = new ClienteController();
     

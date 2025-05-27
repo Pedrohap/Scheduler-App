@@ -26,9 +26,9 @@ class Cliente
         $stmt->execute();
 
         try {
-            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($usuario) {
-                return ['success' => true, 'data' => $usuario];
+            $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($cliente) {
+                return ['success' => true, 'data' => $cliente];
             } else {
                 return ['success' => false, 'error' => 'NOT_FOUND', 'message' => 'Cliente não encontrado com este e-mail.'];
             }
@@ -46,9 +46,9 @@ class Cliente
         $stmt->execute();
 
         try {
-            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($usuario) {
-                return ['success' => true, 'data' => $usuario];
+            $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($cliente) {
+                return ['success' => true, 'data' => $cliente];
             } else {
                 return ['success' => false, 'error' => 'NOT_FOUND', 'message' => 'Cliente não encontrado com este ID.'];
             }
@@ -66,11 +66,38 @@ class Cliente
         $stmt->execute();
 
         try {
-            $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($usuarios) {
-                return ['success' => true, 'data' => $usuarios];
+            $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($clientes) {
+                return ['success' => true, 'data' => $clientes];
             } else {
                 return ['success' => false, 'error' => 'NOT_FOUND', 'message' => 'Clientes não encontrado vinculados a este usuário.'];
+            }
+        } catch (PDOException $e) {
+            return ['success' => false, 'error' => 'DATABASE_ERROR', 'message' => "Erro ao buscar clientes: {$e->getMessage()}"];
+        }
+    }
+
+    // Buscar Clientes por usuario ID e nome parecido
+    public function buscarPorUsuarioENome($usuario_id, $nome_incompleto)
+    {
+        $query = "SELECT * FROM {$this->table} 
+          WHERE usuario_id = :usuario_id 
+            AND nome_completo LIKE :nome_incompleto 
+          ORDER BY nome_completo ASC 
+          LIMIT 10";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':usuario_id', $usuario_id);
+        
+        $nome_like = '%' . $nome_incompleto . '%';
+        $stmt->bindParam(':nome_incompleto', $nome_like);
+
+        try {
+            $stmt->execute();
+            $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($clientes) {
+                return ['success' => true, 'data' => $clientes];
+            } else {
+                return ['success' => false, 'error' => 'NOT_FOUND', 'message' => 'Clientes não encontrados vinculados a este usuário. '];
             }
         } catch (PDOException $e) {
             return ['success' => false, 'error' => 'DATABASE_ERROR', 'message' => "Erro ao buscar clientes: {$e->getMessage()}"];

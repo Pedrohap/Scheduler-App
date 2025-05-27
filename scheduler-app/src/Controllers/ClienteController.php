@@ -74,14 +74,41 @@ class ClienteController
 
     public function getClientesPorUsuario(): array
     {
-        $usuarios = $this->clienteModel->buscarPorUsuarioId(
+        $clientes = $this->clienteModel->buscarPorUsuarioId(
             $_SESSION['usuario_id']
         );
 
-        if ($usuarios['success']) {
-            return $usuarios;
+        if ($clientes['success']) {
+            return $clientes;
         }
         
-        return ['success' => false, 'status' => 409, 'message' => $usuarios['message']];
+        return ['success' => false, 'status' => 409, 'message' => $clientes['message']];
+    }
+
+    public function getClientePorId($id): array
+    {
+        $cliente = $this->clienteModel->buscarPorId(
+            $id
+        );
+
+        if ($cliente['success']) {
+            return $cliente;
+        }
+        
+        return ['success' => false, 'status' => 409, 'message' => $cliente['message']];
+    }
+
+    public function getClientePorNomeLike($nome_incompleto): array
+    {
+        $clientes = $this->clienteModel->buscarPorUsuarioENome(
+            $_SESSION['usuario_id'],
+            $nome_incompleto
+        );
+
+        if ($clientes['success']) {
+            return $clientes;
+        }
+        
+        return ['success' => false, 'status' => 409, 'message' => $clientes['message']];
     }
 }

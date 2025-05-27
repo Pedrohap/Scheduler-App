@@ -34,7 +34,7 @@ class AgendaController
         );
 
         if ($sucesso) {
-            return ['success' => true, 'status' => 201, 'message' => 'Cliente criado com sucesso!'];
+            return ['success' => true, 'status' => 201, 'message' => 'Agenda criada com sucesso!'];
         }
         
         return ['success' => false, 'status' => 409, 'message' => 'Erro ao criar cliente'];
@@ -77,7 +77,19 @@ class AgendaController
         return ['success' => false, 'status' => 409, 'message' => $sucesso['message']];
     }
 
-    public function getAgendas($filtros): array
+    public function getAgendas(): array
+    {
+        $filtros['usuario_id'] = $_SESSION['usuario_id'];
+        $agendas = $this->agendaModel->getAgendas($filtros);
+
+        if ($agendas['success']) {
+            return $agendas;
+        }
+        
+        return ['success' => false, 'status' => 409, 'message' => $agendas['message']];
+    }
+
+    public function getAgendasFiltradas($filtros): array
     {
         $agendas = $this->agendaModel->getAgendas(
             $filtros
