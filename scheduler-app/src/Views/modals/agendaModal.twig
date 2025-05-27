@@ -15,17 +15,20 @@
                 </div>
                 <div class="col">
                     <label for="nome_completo_cliente" class="form-label">Nome Cliente</label>
-                    <input type="text" class="form-control" id="nome_completo_cliente" name="nome_completo_cliente" required>
+                    <input list="usuario_clientes" class="form-control" id="nome_completo_cliente" name="nome_completo_cliente" required>
+                    <datalist id="usuario_clientes">
+                    
+                    </datalist>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <label for="data_inicial" class="form-label">Data de Inicio</label>
-                    <input type="date" class="form-control" id="data_inicial" name="data_inicial" required>
+                    <input type="datetime-local" class="form-control" id="data_inicial" name="data_inicial" required>
                 </div>
                 <div class="col">
                     <label for="data_final" class="form-label">Data de Encerramento</label>
-                    <input type="date" class="form-control" id="data_final" name="data_final" required>
+                    <input type="datetime-local" class="form-control" id="data_final" name="data_final" required>
                 </div>
             </div>
             <div class="row">

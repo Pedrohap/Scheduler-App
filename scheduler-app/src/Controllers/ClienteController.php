@@ -82,6 +82,6 @@ class ClienteController
             return $usuarios;
         }
         
-        return ['success' => false, 'status' => 409, 'message' => $sucesso['message']];
+        return ['success' => false, 'status' => 409, 'message' => $usuarios['message']];
     }
 }

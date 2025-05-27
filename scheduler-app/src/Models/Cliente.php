@@ -57,7 +57,7 @@ class Cliente
         }
     }
 
-    // Buscar por usuario ID
+    // Buscar Clientes por usuario ID
     public function buscarPorUsuarioId($usuario_id)
     {
         $query = "SELECT * FROM {$this->table} WHERE usuario_id = :usuario_id";
@@ -66,7 +66,7 @@ class Cliente
         $stmt->execute();
 
         try {
-            $usuarios = $stmt->fetch(PDO::FETCH_ASSOC);
+            $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($usuarios) {
                 return ['success' => true, 'data' => $usuarios];
             } else {

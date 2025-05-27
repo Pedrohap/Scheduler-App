@@ -218,7 +218,9 @@ $app->get('/getClientes', function ($request, $response, $args) use ($twig) {
 
     $result = $controller->getClientesPorUsuario();
 
-    return $result;
+    $payload = json_encode($result);
+    $response->getBody()->write($payload);
+    return $response->withHeader('Content-Type', 'application/json');
 })->add(new AuthMiddleware());
 
 $app->post('/addCliente', function ($request, $response, $args) use ($twig) {

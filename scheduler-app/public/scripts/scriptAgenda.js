@@ -36,6 +36,29 @@ $(document).ready(function () {
       },
     });
   });
+
+  $('#add_agenda_btn').on('click', function () {
+
+      $.ajax({
+        url: './getClientes',
+        method: 'GET',
+        success: function (dados) {
+            let result = dados.data;
+            let html = '';
+
+          // Suponha que a API retorne um array de resultados
+          result.forEach(function (item) {
+            html += '<option value= "' + item.nome_completo + '">'; // ou qualquer estrutura que você queira
+          });
+
+          // Coloca o HTML gerado na div de resultado
+          $('#usuario_clientes').html(html);
+        },
+        error: function () {
+          $('#usuario_clientes').html('<p>Erro ao buscar dados.</p>');
+        }
+      });
+  });
 });
 
 //JS Puro
