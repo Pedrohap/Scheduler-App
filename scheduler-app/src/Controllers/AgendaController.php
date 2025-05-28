@@ -14,13 +14,31 @@ class AgendaController
         $this->agendaModel = new Agenda();
     }
 
-    // POST /registrar
+    //Função auxiliar para ajuste das chaves de filtro na busca com filtros
+    private function mapearFiltros(array $filtros): array
+    {
+        return [
+            'cliente_id'   => $filtros['cliente_id_filtro'] ?? null,
+            'data_inicial' => $filtros['data_inicio_filtro'] ?? null,
+            'data_final'   => $filtros['data_final_filtro'] ?? null,
+            'titulo'       => $filtros['titulo_filtro'] ?? null
+        ];
+    }
+
     public function adicionar(Request $request): array
     {
         $dados = $request->getParsedBody();
 
         if (!isset($_SESSION['usuario_id'])){
             return ['success' => false, 'status' => 409, 'message' => 'Usuário não está ativo nesta sessão.'];
+        }
+
+        // Converte as strings em objetos DateTime
+        $dataInicial = new \DateTime($dados['data_inicial']);
+        $dataFinal = new \DateTime($dados['data_final']);
+
+        if ($dataFinal < $dataInicial){
+            return ['success' => false, 'status' => 501, 'message' => 'Data Final não pode anteceder a Data Inicial'];
         }
 
         $sucesso = $this->agendaModel->criar(
@@ -61,7 +79,15 @@ class AgendaController
             return ['success' => false, 'status' => 409, 'message' => 'Usuário não está ativo nesta sessão.'];
         }
 
-        $sucesso = $this->agendaModel->criar(
+        // Converte as strings em objetos DateTime
+        $dataInicial = new \DateTime($dados['data_inicial']);
+        $dataFinal = new \DateTime($dados['data_final']);
+
+        if ($dataFinal < $dataInicial){
+            return ['success' => false, 'status' => 501, 'message' => 'Data Final não pode anteceder a Data Inicial'];
+        }
+
+        $sucesso = $this->agendaModel->atualizar(
             $id,
             $dados['cliente_id'],
             $dados['data_inicial'],
@@ -77,7 +103,7 @@ class AgendaController
         return ['success' => false, 'status' => 409, 'message' => $sucesso['message']];
     }
 
-    public function getAgendas(): array
+    public function getAgendas(array $filtros = []): array
     {
         $filtros['usuario_id'] = $_SESSION['usuario_id'];
         $agendas = $this->agendaModel->getAgendas($filtros);
@@ -91,8 +117,11 @@ class AgendaController
 
     public function getAgendasFiltradas($filtros): array
     {
+        $filtrosAjustados = $this->mapearFiltros($filtros);
+        $filtrosAjustados['usuario_id'] = $_SESSION['usuario_id'];;
+        
         $agendas = $this->agendaModel->getAgendas(
-            $filtros
+            $filtrosAjustados
         );
 
         if ($agendas['success']) {

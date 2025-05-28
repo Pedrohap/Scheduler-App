@@ -1,20 +1,26 @@
 {% extends 'layout.twig' %}
 
-{% block title %}Início{% endblock %}
-
 {% block content %}
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="card mb-3 align-self-center" style="max-width: 800px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="./img/home.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Scheduler</h5>
-                        <p class="card-text">Nosso aplicativo foi feito para facilitar o seu dia a dia. Com ele, você faz login de forma segura, cadastra seus clientes com poucos cliques e gerencia sua agenda de atendimentos com total controle e agilidade. Tudo em um só lugar, para você focar no que realmente importa: oferecer um ótimo serviço.</p>
-                        {# <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> #}
-                    </div>
+    <div class="container mt-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4">
+                <img src="./img/home.png" class="img-fluid rounded shadow" alt="Imagem ilustrativa do aplicativo">
+            </div>
+            <div class="col-lg-6">
+                <div class="p-4 bg-light rounded shadow">
+                    <h1 class="display-5 fw-bold mb-3 text-primary">Bem-vindo ao Scheduler</h1>
+                    <p class="lead">
+                        Organize sua rotina com praticidade e eficiência. O Scheduler é a solução ideal para quem busca agilidade na gestão de clientes e atendimentos.
+                    </p>
+                    <p>
+                        Com um sistema intuitivo e seguro, você pode:
+                        <ul>
+                            <li>Fazer login com segurança</li>
+                            <li>Cadastrar clientes com facilidade</li>
+                            <li>Gerenciar sua agenda com total controle</li>
+                        </ul>
+                        Tudo isso em um só lugar, com uma interface leve e funcional, feita para você focar no que realmente importa: entregar o melhor serviço possível.
+                    </p>
                 </div>
             </div>
         </div>

@@ -118,11 +118,34 @@ $app->get('/agenda', function ($request, $response, $args) use ($twig) {
     ]);
 })->add(new AuthMiddleware());
 
+$app->get('/getAgenda/{id}', function ($request, $response, $args) use ($twig) {
+    $filtro['id'] = (int)$args['id'];
+    $controller = new AgendaController();
+    
+
+    $result = $controller->getAgendas($filtro);
+
+    $payload = json_encode($result);
+    $response->getBody()->write($payload);
+    return $response->withHeader('Content-Type', 'application/json');
+})->add(new AuthMiddleware());
+
 $app->get('/getAgendas', function ($request, $response, $args) use ($twig) {
     $controller = new AgendaController();
-    $dados = $request->getParsedBody();
 
     $result = $controller->getAgendas();
+
+    $payload = json_encode($result);
+    $response->getBody()->write($payload);
+    return $response->withHeader('Content-Type', 'application/json');
+
+})->add(new AuthMiddleware());
+
+$app->get('/getAgendasFiltros', function ($request, $response, $args) use ($twig) {
+    $controller = new AgendaController();
+    $dados = $request->getQueryParams();
+
+    $result = $controller->getAgendasFiltradas($dados);
 
     $payload = json_encode($result);
     $response->getBody()->write($payload);
@@ -195,6 +218,7 @@ $app->post('/updateAgenda/{id}', function ($request, $response, $args) use ($twi
 
 
         $data = [
+            'success' => $result['success'],
             'message' => $result['message'],
             'alertType' => !empty($result['success']) ? 'success' : 'danger',
         ];
@@ -202,6 +226,7 @@ $app->post('/updateAgenda/{id}', function ($request, $response, $args) use ($twi
     } else {
 
         $data = [
+            'success' => false,
             'message' => 'Um dos campos não foi preenchido corretamente.',
             'alertType' => 'warning'
         ];
@@ -213,6 +238,17 @@ $app->post('/updateAgenda/{id}', function ($request, $response, $args) use ($twi
 
 
 // Rotas Cliente
+
+$app->get('/clientes', function ($request, $response, $args) use ($twig) {
+    $controller = new ClienteController();
+    $clientes = $controller->getClientesPorUsuario(); // já retorna array ou objeto
+
+    return $twig->render($response, 'clientes.twig', [
+        'title' => 'Clientes',
+        'clientes' => $clientes['data']
+    ]);
+})->add(new AuthMiddleware());
+
 $app->get('/getClientes', function ($request, $response, $args) use ($twig) {
     $controller = new ClienteController();
 

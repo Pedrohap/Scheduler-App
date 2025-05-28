@@ -2,16 +2,23 @@
 
 {% block content %}
     <div class="container">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clienteModal">
-            Adicionar Cliente
-        </button>
+        <h1>Adicionar Clientes/Agenda </h1>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clienteModal">
+                    Adicionar Cliente
+                </button>
+            </div>
+
+            <div class="col">
+                <button type="button" id="add_agenda_btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agendaModal">
+                    Adicionar Agenda
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <div class="container">
-        <button type="button" id="add_agenda_btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agendaModal">
-            Adicionar Agenda
-        </button>
-    </div>
 
     {{ include('./modals/clienteModal.twig') }}
     {{ include('./modals/agendaModal.twig') }}
@@ -19,25 +26,30 @@
     <div class="container">
         <h1>Filtros</h1>
         <div class="row">
-            <form>
+            <form id="filtro-agendas">
                 <div class="row">
-                    <div class="col">
-                        <label for="cliente_id" class="form-label">ID Cliente</label>
-                        <input type="number" class="form-control" id="cliente_id" name="cliente_id" required>
+                    <div class="col-3">
+                        <label for="cliente_id_filtro" class="form-label">ID Cliente</label>
+                        <input type="number" class="form-control" id="cliente_id_filtro" name="cliente_id_filtro" >
                     </div>
                     <div class="col">
-                        <label for="cliente_id" class="form-label">Nome Cliente</label>
-                        <input type="text" class="form-control" id="cliente_id" name="cliente_id" required>
+                        <label for="nome_completo_filtro" class="form-label">Nome Cliente</label>
+                        <input type="text" class="form-control" id="nome_completo_filtro" name="nome_completo_filtro" >
+                        <ul class="list-group position-absolute" id="usuario_clientes_filtro" style="z-index: 1000;"></ul>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="cliente_id" class="form-label">Data de Inicio</label>
-                        <input type="datetime-local" class="form-control" id="cliente_id" name="cliente_id" required>
+                        <label for="data_inicio_filtro" class="form-label">Data de Inicio</label>
+                        <input type="datetime-local" class="form-control" id="data_inicio_filtro" name="data_inicio_filtro" >
                     </div>
                     <div class="col">
-                        <label for="cliente_id" class="form-label">Data de Fim</label>
-                        <input type="datetime-local" class="form-control" id="cliente_id" name="cliente_id" required>
+                        <label for="data_final_filtro" class="form-label">Data de Fim</label>
+                        <input type="datetime-local" class="form-control" id="data_final_filtro" name="data_final_filtro" >
+                    </div>
+                    <div class="col">
+                        <label for="titulo_filtro" class="form-label">Titulo</label>
+                        <input type="text" class="form-control" id="titulo_filtro" name="titulo_filtro" >
                     </div>
                 </div>
                 <div class="row mt-2 pt-2">
@@ -48,10 +60,36 @@
             </form>
         </div>
         <h1>Agendas Marcadas</h1>
-        <div class="row">
-            <div id="div_agendas">
-
-            </div>
+        <div class="row" id="div_agendas">
+            <div class="col-3">
+                <div class="card card-margin" aria-hidden="true">
+                    <div class="card-header no-border">
+                        <h5 class="card-title placeholder-glow"><span class="placeholder col-6"></span></h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-date-primary placeholder-glow">
+                                    <span class="widget-49-date-day"><span class="placeholder col-4"></span></span>
+                                    <span class="widget-49-date-month"><span class="placeholder col-4"></span></span>
+                                </div>
+                                <div class="widget-49-meeting-info placeholder-glow">
+                                    <span class="widget-49-pro-title"><strong><span class="placeholder col-4"></span></strong></span>
+                                    <span class="widget-49-pro-title"><span class="placeholder col-4"></span></span>
+                                    <span class="widget-49-meeting-time"><span class="placeholder col-4"></span></span>
+                                </div>
+                            </div>
+                            <p class="widget-49-meeting-points placeholder-glow" style="color: #727686;">
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <div class="widget-49-meeting-action placeholder-glow">
+                                <button class="btn btn-sm btn-secondary me-1 btn-editar-agenda" data-id="${agenda.id}"><span class="placeholder col-12"></span></a>
+                                <button class="btn btn-sm btn-danger btn-excluir-agenda" data-id="${agenda.id}"><span class="placeholder col-12"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 

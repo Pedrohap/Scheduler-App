@@ -9,7 +9,7 @@ use PDOException;
 class Agenda
 {
     private $conn;
-    private $table = 'tb_agendas';
+    private $table = 'vw_card_agendas';
 
     public function __construct()
     {
@@ -20,10 +20,14 @@ class Agenda
     // Retorna as agendas baseados em filtros dinamicamente aplicados
     public function getAgendas($filtros){
         // Base da query
-        $sql = "SELECT * FROM tb_agendas WHERE 1=1";
+        $sql = "SELECT * FROM {$this->table} WHERE 1=1";
         $params = [];
-
         // Filtros opcionais
+        if (!empty($filtros['id'])) {
+            $sql .= " AND id = :id";
+            $params[':id'] = $filtros['id'];
+        }
+
         if (!empty($filtros['cliente_id'])) {
             $sql .= " AND cliente_id = :cliente_id";
             $params[':cliente_id'] = $filtros['cliente_id'];
@@ -35,13 +39,15 @@ class Agenda
         }
 
         if (!empty($filtros['data_inicial'])) {
+            $dataInicial = date('Y-m-d H:i:s', strtotime($filtros['data_inicial']));
             $sql .= " AND data_inicial >= :data_inicial";
-            $params[':data_inicial'] = $filtros['data_inicial'];
+            $params[':data_inicial'] = $dataInicial;
         }
 
         if (!empty($filtros['data_final'])) {
+            $dataFinal = date('Y-m-d H:i:s', strtotime($filtros['data_final']));
             $sql .= " AND data_final <= :data_final";
-            $params[':data_final'] = $filtros['data_final'];
+            $params[':data_final'] = $dataFinal;
         }
 
         if (!empty($filtros['titulo'])) {
@@ -58,11 +64,11 @@ class Agenda
             if ($agendas) {
                 return ['success' => true, 'data' => $agendas];
             } else {
-                return ['success' => false, 'error' => 'NOT_FOUND', 'message' => 'Clientes não encontrado vinculados a este usuário.'];
+                return ['success' => false, 'error' => 'NOT_FOUND', 'message' => 'Agendas não encontradas vinculados a este usuário.'];
             }
 
         } catch (PDOException $e) {
-            return ['success' => false, 'error' => 'DATABASE_ERROR', 'message' => "Erro ao buscar cliente: {$e->getMessage()}"];
+            return ['success' => false, 'error' => 'DATABASE_ERROR', 'message' => "Erro ao buscar agenda: {$e->getMessage()}"];
         }
     }
 
@@ -154,7 +160,7 @@ class Agenda
 
     public function remover($id)
     {
-        $query = "DELETE FROM {$this->table} 
+        $query = "DELETE FROM tb_agendas 
                 WHERE id = :id";
         try{
             $stmt = $this->conn->prepare($query);

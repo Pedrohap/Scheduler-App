@@ -31,3 +31,20 @@ CREATE TABLE tb_agendas (
     FOREIGN KEY (usuario_id) REFERENCES tb_usuarios(id)
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+CREATE VIEW vw_card_agendas AS
+SELECT
+    a.id,
+    a.data_inicial,
+    a.data_final,
+    a.titulo,
+    a.descricao,
+    a.created_at,
+    a.updated_at,
+    a.usuario_id,
+    a.cliente_id,
+    c.nome_completo AS nome_cliente,
+    c.email AS email_cliente,
+    c.telefone AS telefone_cliente
+FROM tb_agendas a
+JOIN tb_clientes c ON a.cliente_id = c.id;

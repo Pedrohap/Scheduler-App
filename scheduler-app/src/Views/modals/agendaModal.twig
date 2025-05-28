@@ -8,6 +8,10 @@
       <div class="modal-body">
         <span id = "resultado_agenda"></span>
         <form id="form_add_agenda" method="POST" action="./addAgenda" >
+
+            {# Input oculto que era definir se o model irá editar ou adicionar #}
+            <input type="hidden" id="agenda_id" name="agenda_id">
+
             <div class="row">
                 <div class="col-3">
                     <label for="cliente_id" class="form-label">ID Cliente</label>
@@ -16,7 +20,7 @@
                 <div class="col-9">
                     <label for="nome_completo_cliente" class="form-label">Nome Cliente</label>
                     <input type="text" class="form-control" id="nome_completo_cliente" name="nome_completo_cliente" autocomplete="off" required>
-                    <ul class="list-group position-absolute w-100" id="usuario_clientes" style="z-index: 1000;">
+                    <ul class="list-group position-absolute" id="usuario_clientes" style="z-index: 1000;">
                     
                     </ul>
                 </div>
@@ -45,7 +49,7 @@
             </div>
             <div class="row border-top mt-2 pt-2">
                 <div class="col">
-                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="submit" id="btn-agenda-submit" class="btn btn-primary">Adicionar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
