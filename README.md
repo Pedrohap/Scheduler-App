@@ -61,6 +61,8 @@ src/Config/Database.php
 
 4. Execute o script `database.sql` no seu MySQL para criar as tabelas necessárias.
 
+5. Certifique-se de que seu servidor local (Apache, Nginx, etc) está apontando para a pasta `public/` como raiz do projeto.
+> Dica: Para Apache, o projeto inclui um arquivo `.htaccess` com as regras de rewrite necessárias. Para outros servidores, ajuste a configuração conforme a [documentação oficial do Slim Framework](https://www.slimframework.com/docs/v4/start/web-servers.html).
 ---
 
 ## 🔐 Acesso
