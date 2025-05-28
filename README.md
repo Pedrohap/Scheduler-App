@@ -94,4 +94,4 @@ src/Config/Database.php
 
 * O filtro dinâmico foi implementado para agendas, mas não deu tempo para clientes.
 * A sessão é gerenciada manualmente e as rotas são protegidas por middleware.
-* O projeto não utiliza jQuery por escolha técnica e alinhamento com os objetivos do desafio.
+* Para criar uma agenda, é necessário primeiro cadastrar um cliente, já que toda agenda precisa estar vinculada a um.
